@@ -1,25 +1,78 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import Header from "./Todos/Header";
+import TodoList from "./Todos/TodoList";
+import Footer from "./Todos/Footer";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+export class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.handleClickAddChange = this.handleClickAddChange.bind(this);
+    this.toggleChange = this.toggleChange.bind(this);
+    this.remuveButton = this.remuveButton.bind(this);
+    this.clickOnButton = this.clickOnButton.bind(this);
+    this.clickOnButtonClear = this.clickOnButtonClear.bind(this);
+    this.state = {
+      arr: [
+        { completed: false, title: "купить хлеб" },
+        { completed: false, title: "купить молоко" },
+        { completed: false, title: "купить масло" },
+      ],
+      filter: "all",
+    };
+  }
+
+  toggleChange(index) {
+    let arr = this.state.arr;
+    arr[index].completed = !arr[index].completed;
+
+    this.setState({ arr: arr, filter: this.state.filter });
+  }
+
+  clickOnButton(id) {
+    this.setState({ arr: this.state.arr, filter: id });
+  }
+
+  clickOnButtonClear() {
+    let arr = this.state.arr.filter((item) => !item.completed);
+    this.setState({ arr: arr, filter: this.state.filter });
+  }
+
+  remuveButton(index) {
+    this.state.arr.splice(index, 1);
+
+    this.setState({ arr: this.state.arr, filter: this.state.filter });
+  }
+
+  handleClickAddChange(title) {
+    // this.setState({ completed: false, title: title});
+    this.state.arr.push({ completed: false, title: title });
+    this.setState({ arr: this.state.arr, filter: this.state.filter });
+  }
+
+  render() {
+    return (
+      <div className="add">
+        <header>
+          <Header onClickAdd={this.handleClickAddChange} />
+        </header>
+        <section>
+          <TodoList
+            arry={this.state.arr}
+            filter={this.state.filter}
+            toggleChange={this.toggleChange}
+            remuveButton={this.remuveButton}
+          />
+        </section>
+        <footer>
+          <Footer
+            arry={this.state.arr}
+            clickOnButton={this.clickOnButton}
+            clickOnButtonClear={this.clickOnButtonClear}
+          />
+        </footer>
+      </div>
+    );
+  }
 }
 
 export default App;
