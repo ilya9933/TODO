@@ -30,19 +30,21 @@ class Header extends React.Component {
     return (
       <header className="header">
         <h1 className="h1">Todos</h1>
-        <button className="togel-all" onClick={this.clickOnButtonCompleted}>
-          &radic;
-        </button>
-        <form className="form">
-          <input
-            className="new-todo"
-            placeholder="New Todo"
-            autoFocus
-            onChange={this.handleTextChange}
-            onKeyDown={this.handleChange}
-            value={this.state.text}
-          />
-        </form>
+        <div className="header__input">
+          <button className="togel-all" onClick={this.clickOnButtonCompleted}>
+            &radic;
+          </button>
+          <form className="form">
+            <input
+              className="new-todo"
+              placeholder="New Todo"
+              autoFocus
+              onChange={this.handleTextChange}
+              onKeyDown={this.handleChange}
+              value={this.state.text}
+            />
+          </form>
+        </div>
       </header>
     );
   }
