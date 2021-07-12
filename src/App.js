@@ -9,6 +9,7 @@ export class App extends React.Component {
     this.handleClickAddChange = this.handleClickAddChange.bind(this);
     this.toggleChange = this.toggleChange.bind(this);
     this.remuveButton = this.remuveButton.bind(this);
+    this.clickOnButtonCompleted = this.clickOnButtonCompleted.bind(this);
     this.clickOnButton = this.clickOnButton.bind(this);
     this.clickOnButtonClear = this.clickOnButtonClear.bind(this);
     this.state = {
@@ -37,6 +38,23 @@ export class App extends React.Component {
     this.setState({ arr: arr, filter: this.state.filter });
   }
 
+  clickOnButtonCompleted() {
+    let arrCompleted = this.state.arr.filter((item) => item.completed);
+
+    if (this.state.arr.length === arrCompleted.length) {
+      this.state.arr.map((todo) => {
+        todo.completed = false;
+      });
+    } else {
+      this.state.arr.map((todo) => {
+        todo.completed = true;
+      });
+    }
+
+    this.setState({ arr: this.state.arr, filter: this.state.filter });
+    console.log("hyi", this.state.arr);
+  }
+
   remuveButton(index) {
     this.state.arr.splice(index, 1);
 
@@ -44,33 +62,29 @@ export class App extends React.Component {
   }
 
   handleClickAddChange(title) {
-    // this.setState({ completed: false, title: title});
     this.state.arr.push({ completed: false, title: title });
     this.setState({ arr: this.state.arr, filter: this.state.filter });
   }
 
   render() {
     return (
-      <div className="add">
-        <header>
-          <Header onClickAdd={this.handleClickAddChange} />
-        </header>
-        <section>
-          <TodoList
-            arry={this.state.arr}
-            filter={this.state.filter}
-            toggleChange={this.toggleChange}
-            remuveButton={this.remuveButton}
-          />
-        </section>
-        <footer>
-          <Footer
-            arry={this.state.arr}
-            clickOnButton={this.clickOnButton}
-            clickOnButtonClear={this.clickOnButtonClear}
-          />
-        </footer>
-      </div>
+      <>
+        <Header
+          onClickAdd={this.handleClickAddChange}
+          clickOnButtonCompleted={this.clickOnButtonCompleted}
+        />
+        <TodoList
+          arry={this.state.arr}
+          filter={this.state.filter}
+          toggleChange={this.toggleChange}
+          remuveButton={this.remuveButton}
+        />
+        <Footer
+          arry={this.state.arr}
+          clickOnButton={this.clickOnButton}
+          clickOnButtonClear={this.clickOnButtonClear}
+        />
+      </>
     );
   }
 }

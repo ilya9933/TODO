@@ -33,7 +33,9 @@ class TodoItem extends React.Component {
           />
           {this.props.title}
         </span>
-        <button onClick={this.remuveButton}>&times;</button>
+        <button className="button-clear" onClick={this.remuveButton}>
+          &times;
+        </button>
       </li>
     );
   }

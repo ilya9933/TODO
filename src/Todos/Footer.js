@@ -8,20 +8,22 @@ class Footer extends React.Component {
   }
   itemsLeft() {
     let itemsLeft = this.props.arry.filter((item) => item.completed === false);
-    console.log("props", this.props);
-    console.log("itemsLeft", itemsLeft);
+
     return itemsLeft;
   }
   clickOnButton(event) {
+    event.target.className = "border"; // доделать
+
     const id = event.target.id;
     this.props.clickOnButton(id);
+    console.log("event", event);
   }
   clickOnButtonClear() {
     this.props.clickOnButtonClear();
   }
   render() {
     return (
-      <div className="Footer">
+      <footer className="Footer">
         <div>{this.itemsLeft().length} items left</div>
         <div>
           <button id="all" onClick={this.clickOnButton}>
@@ -35,7 +37,7 @@ class Footer extends React.Component {
           </button>
         </div>
         <button onClick={this.clickOnButtonClear}>clear</button>
-      </div>
+      </footer>
     );
   }
 }

@@ -27,17 +27,19 @@ class TodoList extends React.Component {
   }
   render() {
     return (
-      <ul className="ul">
-        {this.props.arry.map((todo, id) => {
-          if (this.props.filter === "all") {
-            return this.todoItem(todo, id);
-          } else if (this.props.filter === "active" && !todo.completed) {
-            return this.todoItem(todo, id);
-          } else if (this.props.filter === "completed" && todo.completed) {
-            return this.todoItem(todo, id);
-          }
-        })}
-      </ul>
+      <section className="section">
+        <ul className="ul">
+          {this.props.arry.map((todo, id) => {
+            if (this.props.filter === "all") {
+              return this.todoItem(todo, id);
+            } else if (this.props.filter === "active" && !todo.completed) {
+              return this.todoItem(todo, id);
+            } else if (this.props.filter === "completed" && todo.completed) {
+              return this.todoItem(todo, id);
+            }
+          })}
+        </ul>
+      </section>
     );
   }
 }
